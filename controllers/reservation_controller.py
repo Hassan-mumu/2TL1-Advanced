@@ -68,17 +68,16 @@ class ReservationController:
         """Filtre les tables disponibles à une date et heure données."""
 
         table_list = self.table_controller.tables
-        cpy_list = [table for table in table_list]
 
-        if self.reservations:
-            cpy_list = []
-            for table in table_list:
-                i = 0
-                reservable = True
-                while i < len(table.reservations) and reservable:
-                    reservable = self.is_reservable(table.reservations[i], (res_heure, res_date))
-                    i += 1
-                if reservable:
-                    cpy_list.append(table)
-        return cpy_list
+        # Si aucune réservation n'existe, toutes les tables sont disponibles
+        if not self.reservations:
+            return table_list
+
+        # Fonction de filtrage pour déterminer si une table est réservable
+        def is_table_reservable(table):
+            return all(self.is_reservable(reservation, (res_heure, res_date)) for reservation in table.reservations)
+
+        # Utilisation de filter pour sélectionner les tables réservables
+        return list(filter(is_table_reservable, table_list))
+
 
