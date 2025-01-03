@@ -1,7 +1,7 @@
 # controllers/table_controller.py
-from models.reservation import Reservation
-from models.table import Table
 from models.database_manager import DatabaseManager
+from models.table import Table
+
 
 class TableController:
     def __init__(self, database_manager=None):
@@ -24,7 +24,8 @@ class TableController:
     def add_table(self, table):
         self.tables.append(table)
     
-    def verifier_disponibilite(self, table : Table, res_hour, res_date):
+    @staticmethod
+    def verifier_disponibilite(table : Table, res_hour, res_date):
         """Vérifie si la table est disponible à la date et l'heure spécifiées."""
         if table.state == 'V':  # Table libre
             return True
@@ -34,7 +35,8 @@ class TableController:
                     return False  # Table déjà réservée à cette heure
         return True
 
-    def extract_res_from_tab(self, tab_liste):
+    @staticmethod
+    def extract_res_from_tab(tab_liste):
 
         reservation_liste = []
 
@@ -47,15 +49,6 @@ class TableController:
 
         return  reservation_liste
 
-    def display_liste(self, liste):
-        display = ""
-        for elem in liste:
-            if isinstance(elem, Table):
-                display += f"Table {elem.t_id}\n"
-            elif isinstance(elem, Reservation):
-                display += f"Reservation {elem.res_id}\n"
-
-        return display
 
     def supress_tables(self, tables):
         for table in tables:

@@ -1,9 +1,6 @@
-from pyexpat.errors import messages
-
 from models.reservation import Reservation
-from models.database_manager import DatabaseManager
 from models.table import Table
-from .table_controller import TableController
+
 
 class ReservationController:
     def __init__(self, database_manager, table_controller):
@@ -24,7 +21,7 @@ class ReservationController:
         while j < len(table) and reservable:
             i = 0
             while i < len(table[j].reservations) and reservable:
-                reservable = self.isReservable(table[j].reservations[i], (res_hour, res_date))
+                reservable = self.is_reservable(table[j].reservations[i], (res_hour, res_date))
                 i += 1
             if not reservable:
                 print(f"La table {table.t_id} n'est pas disponible à cette heure.")
@@ -38,7 +35,8 @@ class ReservationController:
             tables.add_reservation(reservation)
         return reservation
 
-    def isReservable(self, res: Reservation, suggested_res):
+    @staticmethod
+    def is_reservable(res: Reservation, suggested_res):
         """
         Vérifie si une réservation peut être faite à une heure et une date suggérées.
 
@@ -66,7 +64,7 @@ class ReservationController:
             reservation.change_state('P')
             print(message)
 
-    def filterByDateTime(self, res_date, res_heure):
+    def filter_by_date_time(self, res_date, res_heure):
         """Filtre les tables disponibles à une date et heure données."""
 
         table_list = self.table_controller.tables
@@ -78,7 +76,7 @@ class ReservationController:
                 i = 0
                 reservable = True
                 while i < len(table.reservations) and reservable:
-                    reservable = self.isReservable(table.reservations[i], (res_heure, res_date))
+                    reservable = self.is_reservable(table.reservations[i], (res_heure, res_date))
                     i += 1
                 if reservable:
                     cpy_list.append(table)

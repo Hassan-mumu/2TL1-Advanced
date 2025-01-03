@@ -130,7 +130,7 @@ class ReservationView:
             reservation_date = datetime.strptime(reservation[0].get_date(), "%m/%d/%y").date()
             name = reservation[2].get().strip() or name
 
-        tables = self.res_ctrl.filterByDateTime(reservation_date, reservation_hour)
+        tables = self.res_ctrl.filter_by_date_time(reservation_date, reservation_hour)
         self.afficher_tables_selectionner(tables, reservation_hour, reservation_date, name)
 
     def afficher_tables_selectionner(self, liste_table, hour, date, name):

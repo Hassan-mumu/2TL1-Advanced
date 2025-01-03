@@ -1,7 +1,7 @@
-from utils.ui_utils import configurer_scrollable_frame, displayEmpty
+from tkinter import Label
 from assets.contantes import *
-from tkinter import Frame, Label, Listbox, Button
-from tkinter import messagebox
+from utils.ui_utils import configurer_scrollable_frame, displayEmpty
+
 
 class NotificationsView:
     def __init__(self, notification_controller, frame):

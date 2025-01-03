@@ -1,8 +1,7 @@
 from datetime import *
 
+from assets.contantes import LATE_RESERVATION
 from utils.ui_utils import to_minute
-
-from assets.contantes import HOUR_TO_MINUTE, LATE_RESERVATION
 
 
 class NotificationController:

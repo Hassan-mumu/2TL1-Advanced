@@ -1,9 +1,10 @@
-from tkinter import Frame, Label, Button
-from .reservation_view import ReservationView
-from .table_view import TableView
-from .notifications_view import NotificationsView
+from tkinter import Frame, Label
 from assets.contantes import *
 from utils.ui_utils import create_button_menu
+from .notifications_view import NotificationsView
+from .reservation_view import ReservationView
+from .table_view import TableView
+
 
 class MainWindow:
     def __init__(self, fenetre, reservation_controler, table_controller, notification_controller):
